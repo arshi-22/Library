@@ -12,18 +12,22 @@ import axios from "axios";
 //   });
 //   return axiosInstance;
 // };
+
+// const headers = {
+//   "Content-Type": "application/json",
+// };
+
 const response = { status: "", data: [], message: "" };
+
 
 export const get = async (url) => {
   try {
     // let axiosInstance = await getAxiosInstance("http://localhost:8080/");
     let responseData = await axios.get(url);
-    console.log("hiiiiiiiiiiiiiiiii", responseData);
     response.status = responseData.status;
     response.data = responseData.data;
     return response.data;
   } catch (error) {
-    console.log("hiiiiiiiiiiiiiiiii", error?.request.status);
     response.status = error?.request.status;
     response.message =
       error?.request?.response && JSON.parse(error.request.response).message;
