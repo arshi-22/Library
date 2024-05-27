@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooks } from "../../features/slice/bookslice";
@@ -22,7 +22,7 @@ const AddBook = () => {
 
   return (
     <form
-      className="max-w-sm mx-auto border border-gray-400 rounded"
+      className="max-w-sm mx-auto border border-gray-400 rounded text-white"
       onSubmit={handleSubmit(handleAdd)}
     >
       <div className="m-5">
@@ -85,7 +85,7 @@ const AddBook = () => {
         )}
       </div>
       <div className="m-5">
-        <button type="submit" className="bg-indigo-500 rounded w-52 h-10">
+        <button type="submit" className= "w-52 h-10 bg-green-500 rounded-md">
           Add
         </button>
       </div>

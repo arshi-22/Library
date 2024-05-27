@@ -1,7 +1,6 @@
-import "./App.css";
-import AddBook from "./components/addbooks/AddBook";
-import Books from "./components/home/Books";
 import { Header } from "./components";
+import AddBook from "./pages/addbooks/AddBook";
+import Books from "./pages/home/Books";
 
 function App() {
   return (

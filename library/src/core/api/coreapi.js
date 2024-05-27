@@ -24,6 +24,7 @@ export const get = async (url) => {
   try {
     // let axiosInstance = await getAxiosInstance("http://localhost:8080/");
     let responseData = await axios.get(url);
+    
     response.status = responseData.status;
     response.data = responseData.data;
     return response.data;

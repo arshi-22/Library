@@ -28,7 +28,7 @@ const Wishlist = ({ bookDetails }) => {
       <svg width={24} height={25} viewBox="0 0 24 24" cursor={"pointer"}>
         <path
           d="M18 1l-6 4-6-4-6 5v7l12 10 12-10v-7z"
-          fill={item ? "red" : "white"}
+          fill={item ? "orange" : "white"}
         ></path>
       </svg>
     </button>
