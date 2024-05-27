@@ -2,6 +2,7 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   books: [],
+  book: {},
   wishList: [],
   wishListCount: 0,
 };
@@ -11,7 +12,11 @@ export const bookSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     setBooks: (state, action) => {
-      state.books.push(action.payload);
+      action.payload && state.books.push(action.payload);
+    },
+
+    updateBookDetails: (state, action) => {
+      state.book = state.books.find((item) => item?.id === action.payload);
     },
 
     addToWishList: (state, action) => {
@@ -43,12 +48,13 @@ export const bookSlice = createSlice({
 });
 
 export const {
+  setBooks,
+  updateBookDetails,
   addBooks,
   removeBook,
   bookList,
   addToWishList,
   removeFromWishList,
-  setBooks,
 } = bookSlice.actions;
 
 export default bookSlice.reducer;

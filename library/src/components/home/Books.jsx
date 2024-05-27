@@ -4,6 +4,7 @@ import {
   setBooks,
   removeBook,
   removeFromWishList,
+  updateBookDetails,
 } from "../../features/slice/bookslice";
 import Wishlist from "../wishlist/Wishlist";
 import { getBooks } from "../../service/bookService";
@@ -13,20 +14,39 @@ const Books = () => {
   const dispatch = useDispatch();
 
   const fetchBooks = async () => {
-    const response = getBooks(
+    const response = await fetch(
       window.appSettings.BASE_API_URL + "api/v1/books/"
-    );
+    )
+      .then((response) => {
+        response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        return data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    // getBooks(
+    //   window.appSettings.BASE_API_URL + "api/v1/books/"
+    // );
     return response;
   };
 
   useEffect(() => {
     let response = fetchBooks();
-    dispatch(setBooks(response?.data));
+    response?.data
+      ? dispatch(setBooks(response?.data))
+      : dispatch(setBooks([]));
   }, []);
 
   const handleDelete = (book) => {
     dispatch(removeBook(book?.id));
     dispatch(removeFromWishList(book));
+  };
+
+  const handleEditDetails = (id) => {
+    dispatch(updateBookDetails(id));
   };
 
   return (
@@ -59,7 +79,10 @@ const Books = () => {
               </span>
 
               <Wishlist bookDetails={book} />
-              <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              <button
+                onClick={() => handleEditDetails(book?.id)}
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
                 Edit
               </button>
 
