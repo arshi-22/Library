@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { addBooks } from "../../features/slice/bookslice";
+import { addBooks, updateBookDetails } from "../../features/slice/bookslice";
 import { nanoid } from "@reduxjs/toolkit";
+import { useParams } from "react-router-dom";
 
 const AddBook = () => {
   const { book } = useSelector((state) => state.books);
-
+  const bookId = useParams().bookId;
   const dispatch = useDispatch();
   const {
     register,
@@ -19,6 +20,11 @@ const AddBook = () => {
     dispatch(addBooks(data));
     reset({ id: nanoid(), title: "", author: "", price: "" });
   };
+
+  useEffect(() => {
+    bookId && dispatch(updateBookDetails(bookId));
+    return () => dispatch(updateBookDetails());
+  }, [bookId]);
 
   return (
     <form
@@ -85,7 +91,7 @@ const AddBook = () => {
         )}
       </div>
       <div className="m-5">
-        <button type="submit" className= "w-52 h-10 bg-green-500 rounded-md">
+        <button type="submit" className="w-52 h-10 bg-green-500 rounded-md">
           Add
         </button>
       </div>

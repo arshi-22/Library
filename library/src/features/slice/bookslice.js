@@ -16,7 +16,9 @@ export const bookSlice = createSlice({
     },
 
     updateBookDetails: (state, action) => {
-      state.book = state.books.find((item) => item?.id === action.payload);
+      state.book = action.payload
+        ? state.books.find((item) => item?.id === action.payload)
+        : [];
     },
 
     addToWishList: (state, action) => {

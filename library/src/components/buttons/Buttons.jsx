@@ -6,6 +6,7 @@ import {
   updateBookDetails,
 } from "../../features/slice/bookslice";
 import Wishlist from "../wishlist/Wishlist";
+import { Link } from "react-router-dom";
 
 export const Buttons = ({ bookDetails }) => {
   const dispatch = useDispatch();
@@ -20,11 +21,11 @@ export const Buttons = ({ bookDetails }) => {
   };
 
   return (
-    <div>
+    <div className="flex justify-center">
       <Wishlist bookDetails={bookDetails} />
-      <button
+      <Link
+        to={`/editbookdetails/${bookDetails?.id}`}
         onClick={() => handleEditDetails(bookDetails?.id)}
-        // className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         className="text-white   text-sm px-5 py-2.5 text-center dark:hover:bg-gray-800 dark:focus:ring-gray-800"
       >
         <svg width={24} height={25} viewBox="0 0 24 24" cursor={"pointer"}>
@@ -33,10 +34,9 @@ export const Buttons = ({ bookDetails }) => {
             fill="blue"
           />
         </svg>
-      </button>
+      </Link>
       <button
         onClick={() => handleDelete(bookDetails)}
-        // className="text-white bg-red-700 hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
         className="text-white   text-sm px-5 py-2.5 text-center dark:hover:bg-gray-800 dark:focus:ring-gray-800"
       >
         <svg width={24} height={25} viewBox="0 0 24 24" cursor={"pointer"}>
