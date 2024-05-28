@@ -3,22 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
 import { setBooks } from "../../features/slice/bookslice";
 import { getBooks } from "../../service/bookService";
-import { APP_STATUS, APP_URL } from "../../appConstants";
+import { APP_URL } from "../../appConstants";
 
 const Header = () => {
   const { wishList } = useSelector((state) => state.books);
   const dispatch = useDispatch();
 
-  const fetchBooks = async (url) => {
-    const response = await getBooks(url);
-    return response;
+  const fetchBooks = async () => {
+    await getBooks(window.appSettings.BASE_API_URL + APP_URL.listBooks)
+      .then((response) => {
+        dispatch(setBooks(response));
+      })
+      .catch((error) => {
+        dispatch(setBooks([]));
+        console.error(error);
+      });
   };
 
   const handleHeadeLinkClick = () => {
-    const response = fetchBooks(
-      window.appSettings.BASE_API_URL + APP_URL.listBooks
-    );
-    response.status === APP_STATUS.OK && dispatch(setBooks(response.data));
+    fetchBooks();
   };
 
   return (
