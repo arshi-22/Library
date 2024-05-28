@@ -12,7 +12,9 @@ export const bookSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     setBooks: (state, action) => {
-      action.payload && state.books.push(action.payload);
+      console.log("----action-------->", action.payload);
+      state.books = action.payload.data;
+      console.log("----sate-------->", state.books);
     },
 
     updateBookDetails: (state, action) => {
@@ -36,9 +38,9 @@ export const bookSlice = createSlice({
     addBooks: (state, action) => {
       const book = {
         id: nanoid(),
-        title: action.payload.title,
+        bookName: action.payload.bookName,
         author: action.payload.author,
-        price: action.payload.price,
+        prize: action.payload.prize,
       };
       state.books.push(book);
     },

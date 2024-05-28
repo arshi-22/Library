@@ -14,7 +14,10 @@ const AddBook = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+    setValue,
+  } = useForm({
+    defaultValues: { id: nanoid(), title: "", author: "", price: "" },
+  });
 
   const handleAdd = (data) => {
     dispatch(addBooks(data));
@@ -22,7 +25,18 @@ const AddBook = () => {
   };
 
   useEffect(() => {
-    bookId && dispatch(updateBookDetails(bookId));
+    if (bookId) {
+      dispatch(updateBookDetails(bookId));
+      console.log(book);
+      // setValue([
+      //   {
+      //     id: book.id,
+      //     title: book.bookName,
+      //     author: book.author,
+      //     price: book.prize,
+      //   },
+      // ]);
+    }
     return () => dispatch(updateBookDetails());
   }, [bookId]);
 
@@ -43,7 +57,7 @@ const AddBook = () => {
           className="bg-green-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           name="title"
           placeholder="Enter book title"
-          value={book?.title}
+          // value={book?.bookName}
           {...register("title", { required: true })}
         />
         {errors.title && errors.title.type === "required" && (
@@ -61,7 +75,7 @@ const AddBook = () => {
           {...register("author", { required: true })}
           className="bg-green-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Enter author name"
-          value={book?.author}
+          // value={book?.author}
         />
         {errors.author && errors.author.type === "required" && (
           <p className="text-red-500 font-sm ">Author name is required</p>
@@ -78,7 +92,7 @@ const AddBook = () => {
           {...register("price", { required: true, min: 10 })}
           className="bg-green-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Enter price"
-          value={book?.price}
+          // value={book?.prize}
         />
         {errors.price && errors.price.type === "required" && (
           <p className="text-red-500 font-sm ">Price can not be empty</p>

@@ -1,15 +1,32 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
+import { setBooks } from "../../features/slice/bookslice";
+import { getBooks } from "../../service/bookService";
+import { APP_STATUS, APP_URL } from "../../appConstants";
 
 const Header = () => {
   const { wishList } = useSelector((state) => state.books);
+  const dispatch = useDispatch();
+
+  const fetchBooks = async (url) => {
+    const response = await getBooks(url);
+    return response;
+  };
+
+  const handleHeadeLinkClick = () => {
+    const response = fetchBooks(
+      window.appSettings.BASE_API_URL + APP_URL.listBooks
+    );
+    response.status === APP_STATUS.OK && dispatch(setBooks(response.data));
+  };
 
   return (
     <header>
       <div className="font-semibold text-white bg-slate-800 p-2 flex justify-between items-center">
         <NavLink
           to="/books"
+          onClick={handleHeadeLinkClick}
           className={({ isActive }) => {
             return isActive ? "text-yellow-500" : "text-white";
           }}

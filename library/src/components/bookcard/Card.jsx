@@ -16,7 +16,7 @@ export const Card = ({ cardItems }) => {
             <div>
               <a href="#">
                 <h5 className="m-2 text-xl font-semibold tracking-tigt text-gray-900 dark:text-white md:text-3xl md:mt-2 mb-1">
-                  Title: {item?.title}
+                  Title: {item?.bookName}
                 </h5>
               </a>
             </div>
@@ -27,7 +27,7 @@ export const Card = ({ cardItems }) => {
             </div>
             <div className="flex items-center justify-between p-3">
               <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                {item?.price}$
+                {item?.prize}$
               </span>
               <Buttons bookDetails={item} />
             </div>
